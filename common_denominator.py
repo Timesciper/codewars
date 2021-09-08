@@ -42,7 +42,6 @@ def convert_fracts(lst):
                 if not num[1]:
                     num[1].append(1)
     denominator_list = []
-    print(multiplier_number_list)
     for numbers_multipliers in multiplier_number_list:
         denominator_list.append(numbers_multipliers[1])  # имеем список множителей для каждого знаменателя
     first_denominator_multipliers = []
