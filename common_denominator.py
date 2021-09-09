@@ -27,11 +27,13 @@ def devide(number):
 
 def convert_fracts(lst):
     #  сначала попробуем сократить все дроби, для этого разложим на множители числители и знаменатели
+    lst_no_dupes = remove_dupes(lst)
     multiplier_number_list = []
-    for number in lst:
+    for number in lst_no_dupes:
         multiplier_number_list.append([devide(number[0]), devide(number[1])])
-        # теперь все числа имеют вид [[1,2,3,5,5,5],[2,2,3,3,5]]
+        # теперь все числа имеют вид [[2,3,5,5,5],[2,2,3,3,5]]
     for num in multiplier_number_list:
+        # сокращаем числитель и знаменатель
         for numenator in num[0]:
             current_multiplier = numenator
             if current_multiplier in num[1]:
@@ -58,10 +60,12 @@ def convert_fracts(lst):
                 list_of_multi.remove(multiplier)
     res_denominator = 0
     # проверим является ли какой-либо множитель подмножителем другого
+
     for sub_multi in denominator_list[:]:
         for multi in denominator_list:
             if sublist(sub_multi, multi):
                 denominator_list.remove(sub_multi)
+    denominator_list = remove_dupes(denominator_list)
     if denominator_list:
         for number in denominator_list:
             if number:
@@ -90,3 +94,12 @@ def sublist(lst1, lst2):
         return False
     else:
         return True
+
+
+def remove_dupes(lst):
+    #  удаляем одинаковые элементы из списка
+    lst_no_dupes = []
+    for item in lst:
+        if item not in lst_no_dupes:
+            lst_no_dupes.append(item)
+    return lst_no_dupes
