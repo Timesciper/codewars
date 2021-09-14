@@ -64,7 +64,6 @@ class Nonogram:
                 if easy_pair == (2, 2):
                     res_matrix[easy_pair[1]] = (1, 1, 0, 1, 1)
         #  ну пошли по строкам?
-        #  проверим 4ки
         solved = 0
         while solved == 0:
             print('solved')
