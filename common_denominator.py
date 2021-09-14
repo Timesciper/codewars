@@ -27,6 +27,8 @@ def devide(number):
 
 def convert_fracts(lst):
     #  сначала попробуем сократить все дроби, для этого разложим на множители числители и знаменатели
+    if len(lst) == 1:
+        return lst
     lst_no_dupes = remove_dupes(lst)
     multiplier_number_list = []
     for number in lst_no_dupes:
@@ -103,3 +105,6 @@ def remove_dupes(lst):
         if item not in lst_no_dupes:
             lst_no_dupes.append(item)
     return lst_no_dupes
+
+
+print(convert_fracts([[1, 2], [1, 11], [2, 72]]))
