@@ -9,7 +9,8 @@ def snail(snail_map):
     res_list = []
     current_move = 'forward'
     current_step = 0
-
+    if len(snail_map) == 1:
+        return snail_map[0]
     while len(res_list) < (len(snail_map)**2):
 
         if current_move == 'forward':
