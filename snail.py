@@ -11,6 +11,8 @@ def snail(snail_map):
     current_step = 0
     if len(snail_map) == 1:
         return snail_map[0]
+    if type(snail_map[0]) == int or type(snail_map[0]) == str:
+        return snail_map
     while len(res_list) < (len(snail_map)**2):
 
         if current_move == 'forward':
@@ -31,7 +33,7 @@ def snail(snail_map):
 
         if current_move == 'up':
             for index in range(current_step+1, len(snail_map)-current_step-1):
-                res_list.append(snail_map[index][current_step])
+                res_list.append(snail_map[-(index+1)][current_step])
             current_step += 1
             current_move = 'forward'
     return res_list
