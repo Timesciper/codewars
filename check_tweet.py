@@ -35,10 +35,15 @@ def fire_and_fury(tweet):
     result_fury = [_.start() for _ in re.finditer(sub_fury, tweet)]  # находит все FURY в строке
     result_fire = [_.start() for _ in re.finditer(sub_fire, tweet)]  # находит все FIRE в строке
     # теперь нужно составить сиквенсы и сформировать конечную строку
-    res_keywords_indexes_list = result_fury+result_fire
+    res_keywords_indexes_list = result_fury + result_fire
+    res_keywords_indexes_list = sorted(res_keywords_indexes_list)
     counter = 0
     word = ''
     res_list_of_sequences = []
+    # проверим нашли в принципе что-то или нет
+    if not res_keywords_indexes_list:
+        return 'Fake tweet.'
+
     for index_of_keyword in res_keywords_indexes_list:
         if not word:
             if index_of_keyword in result_fire:
@@ -52,14 +57,26 @@ def fire_and_fury(tweet):
                 if index_of_keyword in result_fire:
                     counter += 1
                 else:
-                    counter = 1
                     res_list_of_sequences.append(('FIRE', counter))
-            else:
-                if index_of_keyword in result_fire:
+                    word = 'FURY'
                     counter = 1
-                    res_list_of_sequences.append(('FURY', counter))
-                else:
+            else:
+                if index_of_keyword in result_fury:
                     counter += 1
+                else:
+                    res_list_of_sequences.append(('FURY', counter))
+                    word = 'FIRE'
+                    counter = 1
     res_list_of_sequences.append((word, counter))
-
-    return res_list_of_sequences
+    res_string = ""
+    for item in res_list_of_sequences:
+        addon = ""
+        if item[0] == 'FIRE':
+            if item[1] > 1:
+                addon = 'and you '*(item[1]-1)
+            res_string += ' You {}are fired!'.format(addon)
+        else:
+            if item[1] > 1:
+                addon = "really "*(item[1]-1)
+            res_string += " I am {}furious.".format(addon)
+    return res_string[1:]
